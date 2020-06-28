@@ -1,8 +1,7 @@
-
 var email_valid = null;
 
 var validations = {
-    validate_step_1: function () {
+    validate_step_1: function() {
         var email = $('#email').val();
         var email_repeat = $('#email_repeat').val();
         var firstname = $('#firstname').val();
@@ -23,7 +22,7 @@ var validations = {
             $('#email').addClass('is-invalid');
             addError($('#email').closest('.form__part'), email_valid.body.email);
             errors++;
-        } else if(email_repeat !== email){
+        } else if (email_repeat !== email) {
             $('#email_repeat').addClass('is-invalid');
             addError($('#email_repeat').closest('.form__part'), 'Please fill email repeat field');
             errors++;
@@ -43,18 +42,6 @@ var validations = {
             errors++;
         }
 
-/*        if ($.trim(ethwallet).length < 2) {
-            $('#ethwallet').addClass('is-invalid');
-            addError($('#ethwallet').closest('.form__part'), 'Please fill this field');
-            errors++;
-        }*/
-
-/*        if (validate_wallet_address() === false) {
-            $('#ethwallet').addClass('is-invalid');
-            addError($('#ethwallet').closest('.form__part'), 'Please enter valid Wallet Address');
-            errors++;
-        }*/
-
 
 
         if (errors < 1) {
@@ -63,7 +50,7 @@ var validations = {
             return false;
         }
     },
-    validate_step_2: function () {
+    validate_step_2: function() {
 
         var id_type = $('#id_type').val();
         var id_front_file = $('#id_front_file').val();
@@ -111,7 +98,7 @@ var validations = {
             addError($('#id_back_file').closest('.form__part'), "The document size has to be below 9 MB", 'file');
             errors++;
         }
-        console.log('err'+errors);
+        console.log('err' + errors);
 
         if (errors < 1) {
             return true;
@@ -119,7 +106,7 @@ var validations = {
             return false;
         }
     },
-    validate_step_3: function () {
+    validate_step_3: function() {
         var photo = $('#photo').val();
         var utility_bill = $('#utility_bill').val();
 
@@ -162,7 +149,7 @@ var validations = {
             return false;
         }
     },
-    validate_step_4: function () {
+    validate_step_4: function() {
         var errors = 0;
         $('.is-invalid').removeClass('is-invalid');
         $('#country').closest('.form__part').find('.form__error-text').remove();
@@ -193,7 +180,7 @@ var validations = {
             return false;
         }
     },
-    validate_step_5: function () {
+    validate_step_5: function() {
         var errors = 0;
         $('.error').removeClass('is-invalid');
 
@@ -243,7 +230,7 @@ function isEmail(email) {
     return re.test(email);
 }
 
-function check_email_address(){
+function check_email_address() {
     // alert("check_email_address");
 
     var email_check = $.ajax({
@@ -251,8 +238,8 @@ function check_email_address(){
         dataType: 'json',
         async: false,
         url: service_url,
-        data: '&email='+$('#email').val() + '&url_key=check_email_address',
-        success: function (data) {
+        data: '&email=' + $('#email').val() + '&url_key=check_email_address',
+        success: function(data) {
             console.log(data);
             var inpObj = document.getElementById("email");
 
@@ -282,31 +269,31 @@ function validate_wallet_address() {
     console.log(val);
     console.log(val.length);
 
-    if(!val) {
+    if (!val) {
         console.log("no val");
         $('#ethwallet').closest('.form__part').removeClass('validated');
 
         $('#ethwallet').addClass('is-invalid');
-        $("#ethwallet").data('check','invalid');
+        $("#ethwallet").data('check', 'invalid');
         //inpObj.setCustomValidity('Please enter valid Wallet Address');
         return false;
     }
 
-    if(!val.startsWith("0x")) {
+    if (!val.startsWith("0x")) {
         console.log("no 0x");
         $('#ethwallet').closest('.form__part').removeClass('validated');
         $('#ethwallet').addClass('is-invalid');
-        $("#ethwallet").data('check','invalid');
+        $("#ethwallet").data('check', 'invalid');
         //inpObj.setCustomValidity('Please enter valid Wallet Address');
         return false;
     }
 
     // console.log(val.toLowerCase());
-    if(42 !== val.length) {
+    if (42 !== val.length) {
         console.log("no 42");
         $('#ethwallet').closest('.form__part').removeClass('validated');
         $('#ethwallet').addClass('is-invalid');
-        $("#ethwallet").data('check','invalid');
+        $("#ethwallet").data('check', 'invalid');
         //inpObj.setCustomValidity('Please enter valid Wallet Address');
         return false;
     }
@@ -314,7 +301,7 @@ function validate_wallet_address() {
     console.log("ok");
     //inpObj.setCustomValidity('');
 
-    $("#ethwallet").data('check','valid');
+    $("#ethwallet").data('check', 'valid');
 
     return true;
 }
@@ -323,87 +310,87 @@ function validate_wallet_address() {
 /**
  * REGISTER
  */
-$(function () {
+$(function() {
 
-     jQuery('.button_complete').click(function() {
+    jQuery('.button_complete').click(function() {
 
-         if (check_term()) {
+        if (check_term()) {
 
-             var i;
-             for (i = 1; i < 5; i++) {
-                 // alert("Checking step" + i);
-                 stepcheck(i);
-                 // alert("Che<cked step" + i);
-             }
+            var i;
+            for (i = 1; i < 5; i++) {
+                // alert("Checking step" + i);
+                stepcheck(i);
+                // alert("Che<cked step" + i);
+            }
 
-             // alert("Form will submit");
+            // alert("Form will submit");
 
-             jQuery('.terms1').addClass('no-display');
-             jQuery('.terms2').removeClass('no-display');
-             jQuery('.logo-img').addClass('display-yes');
+            jQuery('.terms1').addClass('no-display');
+            jQuery('.terms2').removeClass('no-display');
+            jQuery('.logo-img').addClass('display-yes');
 
-             $('.button_complete').prop('disabled', true);
-             $("#form_register").submit();
-             // alert("Form submitted");
+            $('.button_complete').prop('disabled', true);
+            $("#form_register").submit();
+            // alert("Form submitted");
 
-         }else{
-             alert("failed");
-             $('.button_complete').prop('disabled', false);
-
-         }
-
-
-
-    });
-
-
-
-
-
-
-    $('#id_type').change(function(){
-        if($(this).val() == 'national_id'){ //
-             	   jQuery('.form-color2 .first-img').addClass('no-show');
-				   jQuery('.form-color2 .second-img').removeClass('no-show');
-				   jQuery('.form-color2 .trd-img').addClass('no-show');
-				   jQuery('.form-color2 .file-hide').removeClass('no-show');  
-				   jQuery('.form-color2 .file-hide2').addClass('no-show'); 
-				   jQuery('.form-color2').addClass('f2act');
+        } else {
+            alert("failed");
+            $('.button_complete').prop('disabled', false);
 
         }
-        if($(this).val() == 'passport'){ //
-                   jQuery('.form-color2 .first-img').removeClass('no-show');
-				   jQuery('.form-color2 .second-img').addClass('no-show');
-				   jQuery('.form-color2 .file-hide').addClass('no-show');  
-				   jQuery('.form-color2 .trd-img').addClass('no-show');
-				   jQuery('.form-color2').removeClass('f2act');
-				   jQuery('.form-color2 .file-hide2').addClass('no-show'); 
+
+
+
+    });
+
+
+
+
+
+
+    $('#id_type').change(function() {
+        if ($(this).val() == 'national_id') { //
+            jQuery('.form-color2 .first-img').addClass('no-show');
+            jQuery('.form-color2 .second-img').removeClass('no-show');
+            jQuery('.form-color2 .trd-img').addClass('no-show');
+            jQuery('.form-color2 .file-hide').removeClass('no-show');
+            jQuery('.form-color2 .file-hide2').addClass('no-show');
+            jQuery('.form-color2').addClass('f2act');
 
         }
-           if($(this).val() == 'drivers_license'){ // or this.value == 'volvo'
-         jQuery('.form-color2 .first-img').addClass('no-show');
-				   jQuery('.form-color2 .second-img').addClass('no-show');
-				   jQuery('.form-color2 .trd-img').removeClass('no-show');			   
-				   jQuery('.form-color2 .file-hide').addClass('no-show'); 
-				   jQuery('.form-color2 .file-hide2').removeClass('no-show');  
-				   jQuery('.form-color2').addClass('f2act');
-				   
-		 }
+        if ($(this).val() == 'passport') { //
+            jQuery('.form-color2 .first-img').removeClass('no-show');
+            jQuery('.form-color2 .second-img').addClass('no-show');
+            jQuery('.form-color2 .file-hide').addClass('no-show');
+            jQuery('.form-color2 .trd-img').addClass('no-show');
+            jQuery('.form-color2').removeClass('f2act');
+            jQuery('.form-color2 .file-hide2').addClass('no-show');
+
+        }
+        if ($(this).val() == 'drivers_license') { // or this.value == 'volvo'
+            jQuery('.form-color2 .first-img').addClass('no-show');
+            jQuery('.form-color2 .second-img').addClass('no-show');
+            jQuery('.form-color2 .trd-img').removeClass('no-show');
+            jQuery('.form-color2 .file-hide').addClass('no-show');
+            jQuery('.form-color2 .file-hide2').removeClass('no-show');
+            jQuery('.form-color2').addClass('f2act');
+
+        }
     });
 
 
-    $('#agree').change(function () {
+    $('#agree').change(function() {
         check_term();
     });
-    $('#not_usa').change(function () {
+    $('#not_usa').change(function() {
         check_term();
     });
-    $('#age_confirm').change(function () {
+    $('#age_confirm').change(function() {
         check_term();
     });
 
 
-    $("#form_register").submit(function (e) {
+    $("#form_register").submit(function(e) {
 
         $('.error-container').remove();
         $('.message-container').html('').hide();
@@ -419,7 +406,7 @@ $(function () {
             dataType: 'json',
             url: service_url,
             data: $form.serialize() + '&url_key=check_email_address',
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
 
                 if (data.error.error) {
@@ -432,7 +419,7 @@ $(function () {
                     fileUploader();
                 }
 
-                $('html,body').animate({scrollTop: 0}, 'slow');
+                $('html,body').animate({ scrollTop: 0 }, 'slow');
             }
         });
     });
@@ -442,18 +429,18 @@ $(function () {
 
 function check_term() {
 
-    $('#agree').next('.form-check-label').css('color','');
-    $('#not_usa').next('.form-check-label').css('color','');
-    $('#age_confirm').next('.form-check-label').css('color','');
+    $('#agree').next('.form-check-label').css('color', '');
+    $('#not_usa').next('.form-check-label').css('color', '');
+    $('#age_confirm').next('.form-check-label').css('color', '');
 
 
     // $('.btn-next').removeClass('button_point');
 
 
     if (
-        $('#agree').is(":checked")
-        && $('#not_usa').is(":checked")
-        && $('#age_confirm').is(":checked")
+        $('#agree').is(":checked") &&
+        $('#not_usa').is(":checked") &&
+        $('#age_confirm').is(":checked")
     ) {
         terms_readed = true;
         // $('.if-already-scroll').css('opacity', 0);
@@ -466,9 +453,9 @@ function check_term() {
 
 
     if (
-        !$('#agree').is(":checked")
-        || !$('#not_usa').is(":checked")
-        || !$('#age_confirm').is(":checked")
+        !$('#agree').is(":checked") ||
+        !$('#not_usa').is(":checked") ||
+        !$('#age_confirm').is(":checked")
     ) {
         terms_readed = false;
 
@@ -481,19 +468,19 @@ function check_term() {
 
 
 function stepcheck(s) {
-    console.log("#########S::: "+s);
+    console.log("#########S::: " + s);
 
-    var validate_name = 'validate_step_'+s;
+    var validate_name = 'validate_step_' + s;
 
-    console.log("#########V::: "+validate_name);
+    console.log("#########V::: " + validate_name);
 
-    var current_form_content = $('*[data-step="'+s+'"]');
+    var current_form_content = $('*[data-step="' + s + '"]');
 
     // console.log(current_form_content.find('.btn-next').html());
 
-    if( step_checker[validate_name]() ) {
+    if (step_checker[validate_name]()) {
         current_form_content.find('.btn-next').prop('disabled', false);
-    }else{
+    } else {
         current_form_content.find('.btn-next').prop('disabled', true);
     }
 }
@@ -501,15 +488,15 @@ function stepcheck(s) {
 
 
 
-$(function () {
+$(function() {
 
-    $('.form__part').find('input').on('keyup', $('.form__part').find('input'), function () {
+    $('.form__part').find('input').on('keyup', $('.form__part').find('input'), function() {
         var currentStep = $(this).closest('.page__form').data('step');
         stepcheck(currentStep);
     });
 
 
-    $('.form__part').find('input').on('change', function () {
+    $('.form__part').find('input').on('change', function() {
 
 
         var value = $.trim($(this).val());
@@ -526,23 +513,23 @@ $(function () {
                 if (email_valid.error.error) {
                     $('#email').addClass('is-invalid');
                     addError($('#email').closest('.form__part'), email_valid.body.email);
-                } else if(value !== $('#email_repeat').val()) {
+                } else if (value !== $('#email_repeat').val()) {
                     $('#email_repeat').addClass('is-invalid');
                     addError($('#email_repeat').closest('.form__part'), 'Please check email repeat field');
-                }else{
+                } else {
                     validationSuccess($(this));
                 }
             } else {
                 addError($(this).closest('.form__part'), 'Please fill email field');
             }
 
-        } else if($(this).hasClass('email_repeat')) {
+        } else if ($(this).hasClass('email_repeat')) {
 
             if (value.length > 2 && isEmail(value)) {
-                if($('#email').val() !== $('#email_repeat').val()) {
+                if ($('#email').val() !== $('#email_repeat').val()) {
                     $('#email_repeat').addClass('is-invalid');
                     addError($('#email_repeat').closest('.form__part'), 'Please check email repeat field');
-                }else{
+                } else {
                     validationSuccess($(this));
                 }
             } else {
@@ -550,14 +537,16 @@ $(function () {
             }
 
 
-        }/*else if ($(this).hasClass('ethwallet')) {
-            if (validate_wallet_address() === false) {
-                $('#ethwallet').addClass('is-invalid');
-                addError($('#ethwallet').closest('.form__part'), 'Please enter valid Wallet Address');
-            } else {
-                validationSuccess($(this));
-            }
-        }*/ else if ($(this).hasClass('input__type-file')) {
+        }
+        /*else if ($(this).hasClass('ethwallet')) {
+                    if (validate_wallet_address() === false) {
+                        $('#ethwallet').addClass('is-invalid');
+                        addError($('#ethwallet').closest('.form__part'), 'Please enter valid Wallet Address');
+                    } else {
+                        validationSuccess($(this));
+                    }
+                }*/
+        else if ($(this).hasClass('input__type-file')) {
             console.log(value.length);
             if (value.length < 2) {
                 return false;
@@ -580,18 +569,18 @@ $(function () {
 
     });
 
-    $('.input__type-file').each(function () {
+    $('.input__type-file').each(function() {
         var input = $(this);
-        $(this).closest('.form__part').find('.form_file__button').click(function () {
+        $(this).closest('.form__part').find('.form_file__button').click(function() {
             input.trigger('click');
         });
     })
 
-    $('body').on('click', '.error', function () {
+    $('body').on('click', '.error', function() {
         $(this).removeClass('is-invalid');
     });
 
-    $('body').on('focus', '.is-invalid', function () {
+    $('body').on('focus', '.is-invalid', function() {
         $(this).removeClass('is-invalid');
     });
 
@@ -603,7 +592,7 @@ $(function () {
  * @type {{validate_step_1: step_checker.validate_step_1, validate_step_4: step_checker.validate_step_4, validate_step_5: step_checker.validate_step_5, validate_step_2: step_checker.validate_step_2, validate_step_3: step_checker.validate_step_3}}
  */
 var step_checker = {
-    validate_step_1: function () {
+    validate_step_1: function() {
         var email = $('#email').val();
         var email_repeat = $('#email_repeat').val();
         var firstname = $('#firstname').val();
@@ -616,10 +605,9 @@ var step_checker = {
         if ($.trim(email).length < 3 && !isEmail($.trim(email))) {
             errors++;
             $('#email').closest('.form__part').removeClass('is-valid');
-        }else{
-        }
+        } else {}
 
-        if(email_repeat !== email){
+        if (email_repeat !== email) {
             $('#email_repeat').closest('.form__part').removeClass('is-valid');
             errors++;
         }
@@ -628,39 +616,37 @@ var step_checker = {
         if ($.trim(firstname).length < 2) {
             errors++;
             $('#firstname').closest('.form__part').removeClass('is-valid');
-        }else{
-        }
+        } else {}
 
         if ($.trim(lastname).length < 2) {
             errors++;
             $('#lastname').closest('.form__part').removeClass('is-valid');
 
-        }else{
-        }
+        } else {}
 
-/*        if ($.trim(ethwallet).length < 42) {
-            errors++;
-            $('#ethwallet').closest('.form__part').removeClass('is-valid');
+        /*        if ($.trim(ethwallet).length < 42) {
+                    errors++;
+                    $('#ethwallet').closest('.form__part').removeClass('is-valid');
 
-        }else{
-        }*/
+                }else{
+                }*/
 
         if (errors < 1) {
             $('.p-form-1').find('.line-info').removeClass().addClass('line-info').addClass('line100');
             return true;
         } else {
-            if(errors == 4){
+            if (errors == 4) {
                 $('.p-form-1').find('.line-info').removeClass().addClass('line-info').addClass('line20');
-            }else if (errors == 3){
+            } else if (errors == 3) {
                 $('.p-form-1').find('.line-info').removeClass().addClass('line-info').addClass('line40');
-            }else if (errors == 2){
+            } else if (errors == 2) {
                 $('.p-form-1').find('.line-info').removeClass().addClass('line-info').addClass('line50');
             }
 
             return false;
         }
     },
-    validate_step_2: function () {
+    validate_step_2: function() {
 
         var id_type = $('#id_type').val();
         var id_front_file = $('#id_front_file').val();
@@ -711,7 +697,7 @@ var step_checker = {
             return false;
         }
     },
-    validate_step_3: function () {
+    validate_step_3: function() {
         var photo = $('#photo').val();
         var utility_bill = $('#utility_bill').val();
 
@@ -755,13 +741,13 @@ var step_checker = {
             $('.p-form-3').find('.line-info').removeClass().addClass('line-info').addClass('line100');
             return true;
         } else {
-            if(errors == 1){
+            if (errors == 1) {
                 $('.p-form-3').find('.line-info').removeClass().addClass('line-info').addClass('line40');
             }
             return false;
         }
     },
-    validate_step_4: function () {
+    validate_step_4: function() {
         var errors = 0;
         $('.error').removeClass('is-invalid');
         $('#country').closest('.form__part').find('.form__error-text').remove();
@@ -794,7 +780,7 @@ var step_checker = {
             return false;
         }
     },
-    validate_step_5: function () {
+    validate_step_5: function() {
         var errors = 0;
 
         if (!check_term()) {
@@ -824,7 +810,7 @@ function register(file_data) {
     var post_data = $('#form_register').serializeArray();
     // post_data.push(file_data);
     post_data = post_data.concat([
-        {name: "files", value: JSON.stringify(file_data)}
+        { name: "files", value: JSON.stringify(file_data) }
     ]);
 
     console.log("register post data -before");
@@ -836,14 +822,14 @@ function register(file_data) {
 
         url: url,
         data: post_data,
-        success: function (data) {
+        success: function(data) {
             console.log(data);
             $('.error-container').remove();
             $('.message-container').html('').hide();
             var error_list = '';
 
             if (typeof data.error.error !== 'undefined' && data.error.error == 1) {
-                jQuery.each(data.body, function (i, val) {
+                jQuery.each(data.body, function(i, val) {
                     $('<small class="alert-danger error-container">' + val.message + '</small>').insertAfter('#' + val.input);
                     error_list += '● ' + val.message + '<br />';
                 });
@@ -863,27 +849,6 @@ function register(file_data) {
         }
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -916,77 +881,12 @@ function nextStep() {
     console.log(currentStep);
 
 
-
-/*
-    if (currentStep != totalSteps) {
-        var validate_name = 'validate_step_' + currentStep;
-        if (validations[validate_name]()) {
-            $("html, body").animate({scrollTop: 0}, "slow");
-
-            currentStep++;
-            $('.page__form').data('step', currentStep);
-            $('.btn-next').removeClass('button_point');
-
-        }
-    } else if (check_term() && currentStep == totalSteps) {
-
-        $('.button_next').prop('disabled', true);
-        // alert(currentStep + " next step fn");
-        $("#form_register").submit();
-        // window.location.href ='/';
-    }
-
-    $('.step_wrapper').removeClass('active');
-    $('.page__form').find('#step_' + currentStep).addClass('active');
-    $('.form-step').find('.step').removeClass('active');
-    $('.form-step').find('#astep_' + currentStep).addClass('active').prev().addClass('done');
-    $('.page__heading').find('#step_value').html(zeroPad(currentStep, 2) + '/' + zeroPad(totalSteps, 2));
-    $('.step_info').find('span').html(zeroPad(currentStep, 2));
-*/
-
 }
 
 
 
-
-/*jQuery('.btn-next').click(function() {
-
-    jQuery('.form-color1').removeClass('active');
-    jQuery('.form-color1').addClass('check-block');
-    jQuery('.form-color2 .line-info').addClass('animate-second-line');
-    jQuery('.form-color2').addClass('w50');
-    $('html,body').stop().animate({ scrollTop: $('.split').offset().top }, 700);
-    jQuery('.form-color3').addClass('w0');
-    jQuery('.form-color2').addClass('active');
-    jQuery('.mob-step1').removeClass('active');
-    jQuery('.mob-step2').addClass('active');
-    jQuery('.mob-step1').addClass('mobile-check');
-
-});*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$('#i1').change(function(e){
-    $in=$(this);
+$('#i1').change(function(e) {
+    $in = $(this);
     $(".btn-submit2").removeAttr("disabled");
     jQuery('.form-color2 .line-info').addClass('line100');
 
@@ -994,8 +894,8 @@ $('#i1').change(function(e){
 
 
 
-$('#i2').change(function(e){
-    $in=$(this);
+$('#i2').change(function(e) {
+    $in = $(this);
     $(".btn-submit3").removeAttr("disabled");
     jQuery('.form-color3 .line-info').addClass('line50');
 
@@ -1003,8 +903,8 @@ $('#i2').change(function(e){
 
 
 
-$('#i3').change(function(e){
-    $in=$(this);
+$('#i3').change(function(e) {
+    $in = $(this);
     $(".btn-submit3").removeAttr("disabled");
     jQuery('.form-color3 .line-info').addClass('line100');
 
@@ -1014,9 +914,8 @@ $('#i3').change(function(e){
 
 
 $(".scroller-b").mCustomScrollbar({
-    axis:"y",
-    advanced:{
-        autoDraggerLength:true
+    axis: "y",
+    advanced: {
+        autoDraggerLength: true
     }
 });
-
